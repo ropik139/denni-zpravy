@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Denní zprávy</title>
+    <meta
+      name="description"
+      content="Přehled nejdůležitějších zpráv za posledních 24 hodin z ČR i ze světa."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div>
+          <p class="eyebrow">Aktualizováno denně</p>
+          <h1>Denní zprávy</h1>
+        </div>
+      </div>
+      <div class="status" id="status">Načítám zprávy...</div>
+    </header>
+
+    <main>
+      <section class="controls" aria-label="Filtry zpráv">
+        <div class="segmented" role="group" aria-label="Region">
+          <button class="is-active" type="button" data-region="all">Vše</button>
+          <button type="button" data-region="cz">ČR</button>
+          <button type="button" data-region="world">Svět</button>
+        </div>
+
+        <label class="select-wrap">
+          <span>Žánr</span>
+          <select id="genreFilter">
+            <option value="all">Všechny žánry</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="summary" aria-label="Souhrn">
+        <div>
+          <strong id="totalCount">0</strong>
+          <span>událostí za posledních 24 hodin</span>
+        </div>
+        <div>
+          <strong id="sourceCount">0</strong>
+          <span>zdrojů</span>
+        </div>
+      </section>
+
+      <section class="news-section">
+        <div class="section-head">
+          <h2>Zprávy z ČR</h2>
+          <span id="czCount">0</span>
+        </div>
+        <div class="news-grid" id="czGrid"></div>
+      </section>
+
+      <section class="news-section">
+        <div class="section-head">
+          <h2>Zprávy ze světa</h2>
+          <span id="worldCount">0</span>
+        </div>
+        <div class="news-grid" id="worldGrid"></div>
+      </section>
+    </main>
+
+    <template id="newsCardTemplate">
+      <article class="news-card">
+        <a class="image-link" target="_blank" rel="noopener noreferrer">
+          <img alt="" loading="lazy" />
+        </a>
+        <div class="card-body">
+          <div class="meta">
+            <span class="genre"></span>
+            <time></time>
+          </div>
+          <h3><a target="_blank" rel="noopener noreferrer"></a></h3>
+          <p></p>
+          <div class="card-footer">
+            <span class="source"></span>
+            <a class="source-link" target="_blank" rel="noopener noreferrer">Zdroj</a>
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <script src="data/news.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "name": "denni-zpravy",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "update:news": "node scripts/update-news.mjs",
+    "schedule:windows": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/install-windows-task.ps1",
+    "serve": "node scripts/serve.mjs"
+  }
+}
