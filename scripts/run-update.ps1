@@ -23,7 +23,7 @@ try {
   }
 
   "Using Node: $nodePath" | Add-Content -Path $logFile -Encoding UTF8
-  $output = & $nodePath scripts/update-news.mjs 2>&1
+  $output = & $nodePath --use-system-ca scripts/update-news.mjs 2>&1
   foreach ($line in $output) {
     $line.ToString() | Add-Content -Path $logFile -Encoding UTF8
     Write-Output $line

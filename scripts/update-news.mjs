@@ -165,6 +165,12 @@ const payload = {
   items: selectedItems,
 };
 
+if (selectedItems.length === 0) {
+  throw new Error(
+    `No news items were fetched, so existing data files were left unchanged. Warnings: ${warnings.join("; ")}`,
+  );
+}
+
 await mkdir("data", { recursive: true });
 await writeFile("data/news.json", `${JSON.stringify(payload, null, 2)}\n`);
 await writeFile(
@@ -188,7 +194,7 @@ async function readFeed(feed, feedIndex) {
     const xml = await readResponseText(response);
     return parseItems(xml).map((rawItem, itemIndex) => normalizeItem(rawItem, feed, feedIndex, itemIndex));
   } catch (error) {
-    warnings.push(`${feed.source}: ${error.message}`);
+    warnings.push(`${feed.source}: ${describeError(error)}`);
     return [];
   }
 }
@@ -402,6 +408,15 @@ function stableId(input) {
     hash |= 0;
   }
   return Math.abs(hash).toString(36);
+}
+
+function describeError(error) {
+  const details = [
+    error?.message,
+    error?.cause?.code,
+    error?.cause?.message,
+  ].filter(Boolean);
+  return details.join(" | ") || String(error);
 }
 
 function stripCdata(value) {
